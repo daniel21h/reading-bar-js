@@ -12,14 +12,13 @@ bar.style.position = 'fixed'
 bar.style.top = '0'
 bar.style.left = '0'
 bar.style.zIndex = '9999'
+bar.style.transition = '0.1s'
 
 // Add bar in html body
 document.body.append(bar)
 
 // Update bar
-
-// Check scroll movement
-document.addEventListener('scroll', () => {
+function updatedBar() {
   // Size of the box containing the text
   // console.log(postWrap.offsetHeight)
   const textHeight = postWrap.offsetHeight
@@ -29,7 +28,14 @@ document.addEventListener('scroll', () => {
   const pagePositionY = window.pageYOffset
 
   // Rule of 3
-  const updatedBar = textHeight * 100 / pagePositionY
+  const updatedBar = pagePositionY * 100 / textHeight
 
-  console.log(updatedBar)
+  // console.log(updatedBar)
+  bar.style.width = updatedBar + '%'
+}
+
+
+window.addEventListener('load', () => {
+  // Check scroll movement
+document.addEventListener('scroll', updatedBar)
 })
